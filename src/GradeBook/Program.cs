@@ -11,7 +11,11 @@ namespace GradeBook
             book.AddGrade(89.1);
             book.AddGrade(90.5);
             book.AddGrade(77.5);
-            book.ShowStatistics();
+            
+            var stats = book.GetStatistics();
+            Console.WriteLine($"A menor nota e {stats.Low}");
+            Console.WriteLine($"A maior nota e {stats.High}");
+            Console.WriteLine($"A média das notas são {stats:N1}");  
 
         }
     }
