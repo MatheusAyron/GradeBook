@@ -16,6 +16,7 @@ namespace GradeBook
             Console.WriteLine($"A menor nota e {stats.Low}");
             Console.WriteLine($"A maior nota e {stats.High}");
             Console.WriteLine($"A média das notas são {stats:N1}");  
+            Console.WriteLine($"A nota e {stats.letter}");
 
         }
     }
