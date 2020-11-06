@@ -67,23 +67,23 @@ namespace GradeBook
             switch (result.Average)
             {
                 case var d when d >= 90.0:
-                    result.letter = 'A'
+                    result.letter = 'A';
                     break;   
 
                 case var d when d >= 80.0:
-                    result.letter = 'B'
+                    result.letter = 'B';
                     break;
 
                 case var d when d >= 70.0:
-                    result.letter = 'C'
+                    result.letter = 'C';
                     break;   
 
                 case var d when d >= 60.0:
-                    result.letter = 'D'
+                    result.letter = 'D';
                     break;
 
                 default:
-                    result.letter = 'C'
+                    result.letter = 'C';
                     break;        
 
             }
