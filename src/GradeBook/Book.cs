@@ -2,7 +2,18 @@ using System;
 using System.Collections.Generic;
 namespace GradeBook
 {
-   public class Book
+    public delegate void GradeAddDelegate(object sender, EventArgs args);
+
+    public class NamedObject
+    {
+        public string Name
+        {
+            get;
+            set;
+        }
+    }
+
+    public class Book : NamedObject
     {
         public Book(string name)
         {
@@ -10,7 +21,7 @@ namespace GradeBook
             Name = name;
         }
 
-        public void AddLetterGrade(char letter)
+        public void AddGrade(char letter)
         {
             switch(letter)
             {
@@ -40,13 +51,19 @@ namespace GradeBook
             if(grade <= 100 && grade >= 0)
             {               
                 grades.Add(grade);
+                if(GradeAdded != null)
+                {
+                   GradeAdded(this, new EventArgs());
+                }
             }
             else
             {
-                Console.WriteLine("Valor invalido");
+                throw new ArgumentException($"Valor {nameof(grade)} inválido");
             }
             
         }
+
+        public event GradeAddDelegate GradeAdded;
 
         public Statistics GetStatistics()
         {
@@ -94,6 +111,6 @@ namespace GradeBook
         }
 
         private List<double> grades;
-        public string Name;
+        public const string CATEGORY = "Ciências";
     }
 }

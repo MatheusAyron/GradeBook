@@ -3,8 +3,56 @@ using Xunit;
 
 namespace GradeBook.Tests
 {
+
+
+    public delegate string  WriteLogDelegate(string logMessage);
     public class TypeTests 
     {
+      int count = 0;
+
+
+      [Fact]
+      public void WriteLogDelegateCanPointToMethod()
+      {
+       //Given//
+
+        WriteLogDelegate log = ReturnMessage;             
+       //When//
+
+        log += ReturnMessage;
+        log += IncrementCount;
+       //Then//
+
+        var result = log("Ola!");
+        Assert.Equal(3, count);
+      }
+      
+      string IncrementCount(string message)
+      {
+        count++;
+        return message.ToLower();
+      }
+
+      string ReturnMessage(string message)
+      {
+        count++;
+        return message;
+      }
+
+      [Fact]
+      public void CanSetNameFromReference()
+      {
+        var book1 = GetBook("Book 1");
+        SetName(book1, "New Name");
+
+        Assert.Equal("New Name", book1.Name);
+      }
+
+      private void SetName(Book book, string name)
+      {
+         book.Name = name;
+      }
+
 
       [Fact]
       public void StringBehaveLikeValueTypes()
