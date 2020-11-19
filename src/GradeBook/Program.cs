@@ -7,39 +7,44 @@ namespace GradeBook
     {
         static void Main(string[] args)
         {
-            var book = new Book("Livro de notas do Matheus");
+            IBook book = new DiskBook("Livro de notas do Matheus");
             book.GradeAdded += OnGradeAdded;
-            
-            while(true)
-            {
-               Console.WriteLine("Coloque sua nota ou 'q' para pular");
-               var input = Console.ReadLine();
 
-               if(input == "q")
+            EnterGrades(book);
+
+            var stats = book.GetStatistics();
+
+            Console.WriteLine($"Para o nome do livro {book.Name}");
+            Console.WriteLine($"A menor nota e {stats.Low}");
+            Console.WriteLine($"A maior nota e {stats.High}");
+            Console.WriteLine($"A média das notas são {stats.Average:N1}");
+            Console.WriteLine($"A nota e {stats.letter}");
+
+        }
+
+        private static void EnterGrades(IBook book)
+        {
+            while (true)
+            {
+                Console.WriteLine("Coloque sua nota ou 'q' para pular");
+                var input = Console.ReadLine();
+
+                if (input == "q")
                 {
-                   break;
+                    break;
                 }
-               
+
                 try
                 {
-                    var grade = double.Parse(input); 
+                    var grade = double.Parse(input);
                     book.AddGrade(grade);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
 
             }
-
-            
-            var stats = book.GetStatistics();
-            Console.WriteLine(Book.CATEGORY);
-            Console.WriteLine($"A menor nota e {stats.Low}");
-            Console.WriteLine($"A maior nota e {stats.High}");
-            Console.WriteLine($"A média das notas são {stats.Average:N1}");  
-            Console.WriteLine($"A nota e {stats.letter}");
-
         }
 
         static void OnGradeAdded(object sender, EventArgs e)
